@@ -3,6 +3,7 @@ package com.compass.di
 import com.compass.data.CompassApi
 import com.compass.data.CompassRepositoryImpl
 import com.compass.domain.CompassRepository
+import com.compass.domain.ResponseConverter
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -45,6 +46,12 @@ object AppModule {
         service: CompassApi
     ): CompassRepository {
         return CompassRepositoryImpl(service)
+    }
+
+    @Singleton
+    @Provides
+    fun provideResponseConverter(): ResponseConverter {
+        return ResponseConverter()
     }
 
 }
