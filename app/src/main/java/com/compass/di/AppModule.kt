@@ -1,7 +1,11 @@
 package com.compass.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.compass.data.CompassApi
+import com.compass.data.CompassCacheImpl
 import com.compass.data.CompassRepositoryImpl
+import com.compass.domain.CompassCache
 import com.compass.domain.CompassRepository
 import com.compass.domain.ResponseConverter
 import com.google.gson.Gson
@@ -9,6 +13,7 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -52,6 +57,18 @@ object AppModule {
     @Provides
     fun provideResponseConverter(): ResponseConverter {
         return ResponseConverter()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext app: Context): SharedPreferences {
+        return app.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCompassCache(pref: SharedPreferences): CompassCache {
+        return CompassCacheImpl(pref)
     }
 
 }

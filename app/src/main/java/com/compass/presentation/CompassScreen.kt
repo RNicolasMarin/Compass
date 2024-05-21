@@ -46,9 +46,6 @@ private fun CompassScreen(
         .padding(8.dp),
         contentAlignment = Alignment.Center
     ) {
-        if (state.isEveryTenthCharacterLoading || state.isWordCounterLoading) {
-            CircularProgressIndicator()
-        }
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {
@@ -86,6 +83,10 @@ private fun CompassScreen(
                     WorldCounter(list[it])
                 }
             }
+        }
+        if (state.isEveryTenthCharacterLoading || state.isWordCounterLoading) {
+            Box(modifier = Modifier.fillMaxSize().background(Color.White.copy(0.7f)))
+            CircularProgressIndicator()
         }
     }
 }

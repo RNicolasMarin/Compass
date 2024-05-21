@@ -11,7 +11,8 @@ class CompassRepositoryImpl(
         return try {
             val result = service.getPageContent()
             if (result.isSuccessful) {
-                Result.Success(result.body().toString())
+                val body = result.body().toString()
+                Result.Success(body)
             } else {
                 Result.Error(result.errorBody().toString())
             }
